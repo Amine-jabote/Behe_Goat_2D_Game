@@ -57,23 +57,20 @@ public class Enemy : MonoBehaviour
 
     curShotDelay = 0;
    }
-   void OnHit(int dmg)
+   public void OnHit(int dmg)
    {
+    print("Hit!");
     health -= dmg;
-    spriteRender.sprite = sprites[0];
     Invoke("ReturnSprite", 0.1f);
 
     if(health <= 0)
     {
+        print("Enemy Die!");
         Ctrl_Player playerLogic = player.GetComponent<Ctrl_Player>();
         Destroy(gameObject);
     }
    }
 
-   void ReturnSprite()
-   {
-    spriteRender.sprite = sprites[0];
-   }
 
    void OnTriggerEnter2D(Collider2D collision)
    {
@@ -81,8 +78,11 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     else if (collision.gameObject.CompareTag("PlayerBullet")){
         Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-        OnHit(bullet.dmg);
-        Destroy(collision.gameObject);
+        if (bullet != null) // Vérification si le GameObject possède bien le composant Bullet
+        {
+            OnHit(bullet.dmg);
+            Destroy(collision.gameObject);
+        }
     }
     else if (collision.gameObject.CompareTag("Player"))
     {
