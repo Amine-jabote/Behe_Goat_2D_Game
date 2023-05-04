@@ -11,5 +11,16 @@ public class Bullet : MonoBehaviour
         if(collision.gameObject.CompareTag("BorderBullet"))
             Destroy(gameObject);
         
-     } 
+        if (collision.gameObject.CompareTag("Enemy"))
+    {
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        enemy.OnHit(dmg);
+        Destroy(gameObject);
+    }
+    else if (collision.gameObject.CompareTag("BorderBullet"))
+    {
+        Destroy(gameObject);
+    }
+        
+    } 
 }
