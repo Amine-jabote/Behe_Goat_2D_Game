@@ -1,3 +1,14 @@
+// Ce script permet de gérer les niveaux du jeu "Behe Goat".
+//!!ATTENTION : ***Une petite faute de frappe dans le nom de ce script le nom est : "LevelsManager "***!!
+// Auteur: Jabote Mohamed Amine.
+// Date: 2023-04-01.
+// Dans le cadre de l'UE GL01 à l'UTT.
+// Semestre : P23.
+// Projet : Projet de jeu vidéo "Behe Goat".
+//langage: C#.
+
+
+//Appel des bibliothèques
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,26 +18,27 @@ using System;
 
 public class Level1Manager : MonoBehaviour
 {
-    public GameObject[] enemyObjs;
-    public Transform[] spawnPoints;
+    //Déclaration des variables
+    public GameObject[] enemyObjs;//tableau des ennemis
+    public Transform[] spawnPoints;//tableau des points de spawn
 
-    public float maxSpawnDelay;
-    public float curSpawnDelay;
+    public float maxSpawnDelay;//temps maximum entre chaque spawn
+    public float curSpawnDelay;//temps actuel entre chaque spawn
 
-    public Image[] lifeImage;
-    public GameObject gameOverSet;
-    public GameObject player;
-    public Text scoreText;
+    public Image[] lifeImage;//tableau des images de vie
+    public GameObject gameOverSet;//objet de fin de jeu
+    public GameObject player;//objet du joueur
+    public Text scoreText;//texte du score
     
     public static Level1Manager instance;
 
-    public float elapsedTime;
-    public Text elapsedTimeText;
-    public Text timerText;
+    public float elapsedTime;//temps écoulé depuis le début du niveau
+    public Text elapsedTimeText;//texte du temps écoulé
+    public Text timerText;//texte du timer
     public float maxTime = 160f; // final value of elapsed time
 
     void Start() {
-    elapsedTimeText = GameObject.Find("Chrono").GetComponent<Text>();
+    elapsedTimeText = GameObject.Find("Chrono").GetComponent<Text>();//trouve le texte du chrono
 }
 
     void Awake()
@@ -35,12 +47,16 @@ public class Level1Manager : MonoBehaviour
     }
 
 
+
+    //Mis à jour
     void Update()
     {
-        curSpawnDelay += Time.deltaTime;
-        elapsedTime += Time.deltaTime;
+        curSpawnDelay += Time.deltaTime;//temps entre chaque spawn
+        elapsedTime += Time.deltaTime;//temps écoulé depuis le début du niveau
          // Mettre à jour le texte du temps écoulé
-        elapsedTimeText.text = string.Format("Time: {0}:{1:00}", (int)elapsedTime / 60, (int)elapsedTime % 60);
+        elapsedTimeText.text = string.Format("Time: {0}:{1:00}", (int)elapsedTime / 60, (int)elapsedTime % 60);//affiche le temps écoulé
+
+        //Si le temps écoulé est supérieur au temps maximum et que le joueur n'est pas mort, on passe à la scène finale du niveau
         if (elapsedTime >= maxTime && player.GetComponent<Ctrl_Player>().life > 0 && SceneManager.GetActiveScene().name == "level_1")
         {
         SceneManager.LoadScene("fin_level_1");
@@ -62,12 +78,12 @@ public class Level1Manager : MonoBehaviour
         SceneManager.LoadScene("fin_level_5");
         }
         else {
-        // update the timer text
+        // Mis à jour du timer text
         TimeSpan timeSpan = TimeSpan.FromSeconds(maxTime - elapsedTime);
         string timerString = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
         timerText.text = timerString;
-    }
-
+        }
+        //Si   le temps entre chaque spawn est supérieur au temps maximum entre chaque spawn, on fait spawn un ennemi
         if(curSpawnDelay > maxSpawnDelay)
         {
             spawnEnemy();
@@ -75,18 +91,21 @@ public class Level1Manager : MonoBehaviour
             curSpawnDelay = 0;
         }
 
+        // Mettre à jour le texte du score
         Ctrl_Player playerLogic = player.GetComponent<Ctrl_Player>();
         scoreText.text = string.Format("{0:n0}");
 
+        //Si le joueur n'a plus de vie, on lance la fonction GameOver
         if (playerLogic.life == 0)
-    {
+        {
         GameOver();
-    }
+        }
     
     }
 
+    //Fonction qui permet de faire spawn un ennemi
    void spawnEnemy()
-{
+    {
         int ranEnemy;
     if (SceneManager.GetActiveScene().name == "level_5")
     {
@@ -105,8 +124,9 @@ public class Level1Manager : MonoBehaviour
     Instantiate(enemyObjs[ranEnemy], 
         spawnPoints[ranPoint].position ,
         spawnPoints[ranPoint].rotation);
-}
+    }
 
+    //Fonction qui permet de mettre à jour les images de vie
    public void UpdateLifeIcon(int life)
     {
         for (int i = 0; i < lifeImage.Length; i++)
@@ -122,11 +142,14 @@ public class Level1Manager : MonoBehaviour
         }
     }
 
+    //Fonction qui permet de faire respawn le joueur
     public void RespawnPlayer()
     {
         Invoke("RespawnPlayerExe", 2f);
     }
 
+
+    //Fonction qui permet de faire respawn le joueur
     void RespawnPlayerExe()
     {
         if (SceneManager.GetActiveScene().name == "level_4")
@@ -144,17 +167,19 @@ public class Level1Manager : MonoBehaviour
     player.SetActive(true);
     }
 
- public void GameOver()
-{
+    //La fonction GameOver permet de gérer la fin de jeu
+    public void GameOver()
+    {
     if (player.GetComponent<Ctrl_Player>().life == 0)
     {
         gameOverSet.SetActive(true);
         player.SetActive(false);
     }
-}
+    }
 
- public void GameRetry()
-{
+    //La fonction GameRetry permet de gérer le bouton "Retry" de la fin de jeu
+    public void GameRetry()
+    {
     Scene currentScene = SceneManager.GetActiveScene();
     if (currentScene.name == "level_4")
     {
@@ -172,5 +197,7 @@ public class Level1Manager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-}
+    }
+
+    //Fin
 }
