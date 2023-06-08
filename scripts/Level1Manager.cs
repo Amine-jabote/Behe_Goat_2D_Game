@@ -109,9 +109,9 @@ public class Level1Manager : MonoBehaviour
         int ranEnemy;
     if (SceneManager.GetActiveScene().name == "level_5")
     {
-        ranEnemy = UnityEngine.Random.Range(0, 2);
+        ranEnemy = UnityEngine.Random.Range(0, 3);
     }
-    else if (SceneManager.GetActiveScene().name == "level_3")
+    else if (SceneManager.GetActiveScene().name == "level_2")
     {
         ranEnemy = UnityEngine.Random.Range(0, 4);
     }
@@ -156,9 +156,17 @@ public class Level1Manager : MonoBehaviour
     {
         player.transform.position = new Vector3(1.5f, 0.5f, 0f);
     }
-    else if (SceneManager.GetActiveScene().name == "level_3")
+    else if (SceneManager.GetActiveScene().name == "level_2")
     {
         player.transform.position = new Vector3(13.96f, -0.47f, 0f);
+    }
+    else if (SceneManager.GetActiveScene().name == "level_3")
+    {
+        player.transform.position = new Vector3(-14.24f, -4.1f, 0f);
+    }
+    else if (SceneManager.GetActiveScene().name == "level_5")
+    {
+        player.transform.position = new Vector3(-7.4f, -4.8f, 0f);
     }
     else
     {
@@ -183,19 +191,19 @@ public class Level1Manager : MonoBehaviour
     Scene currentScene = SceneManager.GetActiveScene();
     if (currentScene.name == "level_4")
     {
-        SceneManager.LoadScene("level_4");
+        SceneManager.LoadScene(1);
     }
     else if (currentScene.name == "level_5")
     {
-        SceneManager.LoadScene("level_5");
+        SceneManager.LoadScene(1);
     }
-    else if (currentScene.name == "level_3")
+    else if (currentScene.name == "level_2")
     {
-        SceneManager.LoadScene("level_3");
+        SceneManager.LoadScene(1);
     }
     else
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     }
 
