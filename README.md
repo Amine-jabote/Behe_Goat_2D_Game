@@ -6,4 +6,4 @@
 
 # To install the game : 
 
-https://filesender.renater.fr/?s=download&token=96b92f75-4a4c-41b4-afea-1d7d5c95bda2
+https://filesender.renater.fr/?s=download&token=630a3e08-dee3-43ea-a7d1-5ae189b58449
