@@ -1,7 +1,7 @@
 # Behe_Goat_2D_Game
 
 <p align="center">
-  <img src="[https://github.com/Amine-jabote/Chatb-UTT/assets/114097461/010ac8d4-17fa-46d8-bbe0-3c0cd1255eb1](https://user-images.githubusercontent.com/114097461/236181025-3fb4ebc2-9619-4ed3-a989-b608129a7c9c.png)" width="400" />
+  <img src="https://user-images.githubusercontent.com/114097461/236181025-3fb4ebc2-9619-4ed3-a989-b608129a7c9c.png" width="400" />
 </p>
 
 
